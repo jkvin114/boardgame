@@ -4,34 +4,6 @@
 
 
 
-# #0 name
-# 1 id
-# 2 location
-# 3 phase
-#  4 turn
-#  5 money
-#       0  1        2   3   4   5   6   7    8        9
-# 6 [HP,MaxHP,AD,AP,AR,MR,arP.MP,absorb,HPregen]
-# 7 [Qcool,Wcool,Ucool]
-# 8 [Qdur,Wdur,Udur]
-#       0     1       2     3     4        5           6       7            8        9    10       11   1 
-# 9 [slow,speed,stun,blind,silent,mushroom,bank,realshield,potato,radi,annuity,loan,slave]
-# 10 [tempPD,tempMD]
-# 11  [silvermark,jeanmark,movinshinmark]
-# 12 [outbattle,adamage,nextdmg]
-# 13 [lastobs,currentobs]
-# 14 proj
-# 15 lastdice
-# 16 mregion
-# 17 lastmoney
-# 18 gacool
-# 19 items
-# 20 stats
-# player = [[],[],[],[]]
-# damagedby=[turns after last damage,skillfrom] 
-# 
-#
-
 
  
 #-*- coding: ms949 -*-
@@ -192,11 +164,11 @@ class Player():
         
         if not (-1<obs<=11 or obs== 16 or obs== 18 or obs==21 or obs==22 or obs==24 or obs==29 or obs==30 or obs==31 or obs==32 or obs==33 or obs==37 or obs==56 or obs==57):
             if self.id==6 and self.duration[1]>0:
-                window.getAlarm('½ºÅ³·Î Àå¾Ö¹° ¹«½ÃÇÔ')
+                window.getAlarm('ìŠ¤í‚¬ë¡œ ì¥ì• ë¬¼ ë¬´ì‹œí•¨')
                 return 0
             if self.effects[7]>0:
                 self.resetRealshield()
-                window.getAlarm('¹æ¾î¸·À¸·Î Àå¾Ö¹° ¹«½ÃÇÔ')
+                window.getAlarm('ë°©ì–´ë§‰ìœ¼ë¡œ ì¥ì• ë¬¼ ë¬´ì‹œí•¨')
                 return 0
         if 166  <=self.location<=168:
             self.effects[9]=1
@@ -226,7 +198,7 @@ class Player():
         elif obs==18: 
             self.mregion=1
             self.adamage=20
-            window.getAlarm('½ºÅ³ »ç¿ë½Ã Ãß°¡ÇÇÇØ20, ½Å¼Ó 1ÅÏ ')
+            window.getAlarm('ìŠ¤í‚¬ ì‚¬ìš©ì‹œ ì¶”ê°€í”¼í•´20, ì‹ ì† 1í„´ ')
         elif obs==19:
             if self.money>=0: self.giveDamage(players,self.money,-8)
             else: self.giveHeal(-1*self.money)
@@ -238,7 +210,7 @@ class Player():
             window.getAlarm('cooltime reset')
         elif obs==22: 
             self.adamage=30
-            window.getAlarm('Ãß°¡ÇÇÇØ3, »ç°Å¸® 3¹èÁõ°¡')
+            window.getAlarm('ì¶”ê°€í”¼í•´3, ì‚¬ê±°ë¦¬ 3ë°°ì¦ê°€')
         elif obs==23: 
             self.effects[2]=1
             winsound.PlaySound('sound\\web.wav', winsound.SND_ASYNC)
@@ -246,7 +218,7 @@ class Player():
         elif obs==25: 
             target=self.turn
             if not self.isai:
-                mb.showinfo(None, "ÅÂÇ³! ÁÖ»çÀ§ ´øÁö±â Àü Ä­À¸·Î ÀÌµ¿!")
+                mb.showinfo(None, "íƒœí’! ì£¼ì‚¬ìœ„ ë˜ì§€ê¸° ì „ ì¹¸ìœ¼ë¡œ ì´ë™!")
             self.currobs=self.lastobs
             time.sleep(0.3)
             
@@ -281,7 +253,7 @@ class Player():
                     if players[o].location!=self.location: target=o
             if target==-1: return 0
             if not self.isai:
-                mb.showinfo(None, "À§Ä¡±³È¯!")
+                mb.showinfo(None, "ìœ„ì¹˜êµí™˜!")
             died=players[target].nextDmg(players)
             died=self.nextDmg(players)
             if died: return 0
@@ -308,7 +280,7 @@ class Player():
                     else:
                         targets.append(p)
             if len(targets)==0: 
-                if self.isai==False: window.getAlarm('º¡À§³»¿¡ ÇÃ·¹ÀÌ¾î ¾øÀ½')
+                if self.isai==False: window.getAlarm('ë²™ìœ„ë‚´ì— í”Œë ˆì´ì–´ ì—†ìŒ')
                 return 0
         
             skillto=window.skillchoose(targets)
@@ -317,7 +289,7 @@ class Player():
             else: target=targets[skillto-1].turn
             out=3
             
-            window.getAlarm('ÀÌµ¿½ÃÅ³ Ä­À» ¼±ÅÃÇÏ½Ã¿À')
+            window.getAlarm('ì´ë™ì‹œí‚¬ ì¹¸ì„ ì„ íƒí•˜ì‹œì˜¤')
             
             locaa=-1
             
@@ -329,7 +301,7 @@ class Player():
                 upper=players[target].location+5
                 
                 if lower<=locaa<=upper: break
-                window.getAlarm("ÀÌµ¿½ÃÅ³ Ä­À» ¼±ÅÃÇÏ½Ã¿À")
+                window.getAlarm("ì´ë™ì‹œí‚¬ ì¹¸ì„ ì„ íƒí•˜ì‹œì˜¤")
             players[target].effects[2]=0
             obs=players[target].goto(locaa)
             rangepen.clear()
@@ -409,7 +381,7 @@ class Player():
                 if self.HP<200: kidnap='yes'
                 else: kidnap='no'
             else:
-                kidnap = mb.askquestion ('ÇÏ³ª¸¸ °í¸£½Ã¿À','yes:2ÅÏ¼Ó¹Ú, no:4ÅÏ µĞÈ­',icon = 'warning')
+                kidnap = mb.askquestion ('í•˜ë‚˜ë§Œ ê³ ë¥´ì‹œì˜¤','yes:2í„´ì†ë°•, no:4í„´ ë‘”í™”',icon = 'warning')
             
             if kidnap=='yes':
                 self.effects[2]=2
@@ -428,26 +400,26 @@ class Player():
             dice=chooseSubway()
             if dice==1:
                 if not self.isai:    
-                    mb.showinfo(None, "»óÁ¡À¸·Î")
+                    mb.showinfo(None, "ìƒì ìœ¼ë¡œ")
                 self.location=29
                 self.character.Move(29)
                 self.Item()
                 return -1
             elif dice==2:
                 self.giveMoney(50)
-                mb.showinfo(None, "+50 °ñµå!")
+                mb.showinfo(None, "+50 ê³¨ë“œ!")
             elif dice==3:
                 self.moneyTaken(50)
-                mb.showinfo(None, "-50 °ñµå!")
+                mb.showinfo(None, "-50 ê³¨ë“œ!")
             elif dice==4:
-                mb.showinfo(None, "»ç¸Á!")
+                mb.showinfo(None, "ì‚¬ë§!")
                 self.giveDamage(players,4444, -1)
             elif dice==5: 
-                mb.showinfo(None, "2µî±Ş Àç»ıÀÇ¿­¸Å Áö±Ş")
+                mb.showinfo(None, "2ë“±ê¸‰ ì¬ìƒì˜ì—´ë§¤ ì§€ê¸‰")
                 self.regen+=10
                 self.addMaxhp(40)
             elif dice==6: 
-                mb.showinfo(None, "34¹øÄ­À¸·Î ÀÌµ¿")
+                mb.showinfo(None, "34ë²ˆì¹¸ìœ¼ë¡œ ì´ë™")
                 self.location=34
                 self.character.Move(34)
         elif obs==57:
@@ -455,27 +427,27 @@ class Player():
             dice=chooseCasino()
             if dice==1:
                 if not self.isai:
-                    mb.showinfo(None, "+100 °ñµå")
+                    mb.showinfo(None, "+100 ê³¨ë“œ")
                 self.giveMoney(100)
             elif dice==2:
                 if not self.isai:
-                    mb.showinfo(None, "µ· 2¹è")
+                    mb.showinfo(None, "ëˆ 2ë°°")
                 self.giveMoney(self.money)
             elif dice==3:
                 if not self.isai:
-                    mb.showinfo(None, "½Å¼Ó2ÅÏ!")
+                    mb.showinfo(None, "ì‹ ì†2í„´!")
                 self.effects[1]=2
             elif dice==4:
                 if not self.isai:
-                    mb.showinfo(None, "Ã¼·Â ¹İÀ¸·Î!")
+                    mb.showinfo(None, "ì²´ë ¥ ë°˜ìœ¼ë¡œ!")
                 self.giveDamage(players,9999, -1)
             elif dice==5: 
                 if not self.isai:
-                    mb.showinfo(None, "µ· Àı¹İ ¸ô¼ö")
+                    mb.showinfo(None, "ëˆ ì ˆë°˜ ëª°ìˆ˜")
                 self.moneyTaken(int(self.money/2))
             elif dice==6: 
                 if not self.isai:
-                    mb.showinfo(None, "¼Ó¹Ú,Ã¼·Â -50")
+                    mb.showinfo(None, "ì†ë°•,ì²´ë ¥ -50")
                 self.effects[2]=1
                 self.giveDamage(players,50, -12)
             return -1
@@ -485,16 +457,16 @@ class Player():
             winsound.PlaySound('sound\\judgement.wav', winsound.SND_ASYNC)
             if dice==1:
                 if not self.isai:
-                    mb.showinfo(None, "¹ú±İ 100°ñµå")
+                    mb.showinfo(None, "ë²Œê¸ˆ 100ê³¨ë“œ")
                 self.moneyTaken(100)
             elif dice==2:
                 if not self.isai:
-                    mb.showinfo(None, "Ã¼·Â ¹İ ±ğÀÓ, Àç½ÉÀ» ±â´Ù¸®½Ã¿À")
+                    mb.showinfo(None, "ì²´ë ¥ ë°˜ ê¹ì„, ì¬ì‹¬ì„ ê¸°ë‹¤ë¦¬ì‹œì˜¤")
                 self.giveDamage(players,int(self.HP/2), -1)
                 self.effects[2]=1
             elif dice==3:
                 if not self.isai:
-                    mb.showinfo(None, "¼ºÁö¼ø·Ê")
+                    mb.showinfo(None, "ì„±ì§€ìˆœë¡€")
                 self.effects[0]=1
                 self.effects[2]=1
                 self.currobs=45
@@ -503,11 +475,11 @@ class Player():
                 self.giveDamage(players,100, -10)
             elif dice==4:
                 if not self.isai:
-                    mb.showinfo(None, "»çÇü!")
+                    mb.showinfo(None, "ì‚¬í˜•!")
                 self.giveDamage(players,4444, -1)
             elif dice==5: 
                 if not self.isai:
-                    mb.showinfo(None, "¸ğµç ÇÃ·¹ÀÌ¾î ¼ÒÈ¯¸í·É")
+                    mb.showinfo(None, "ëª¨ë“  í”Œë ˆì´ì–´ ì†Œí™˜ëª…ë ¹")
                 for o in others:
                     players[o].effects[2]=0
                     players[o].location=self.location
@@ -518,15 +490,15 @@ class Player():
                     if self.effects[12]: slavery='yes'
                     else: slavery='no'
                 else:
-                    slavery = mb.askquestion ('Choose one','Yes:ÀÚ½ÅÀÇ ³ë¿¹ÇØ¹æ \n, No:´Ù¸¥ ¸ğµç ÇÃ·¹ÀÌ¾î¿¡°Ô ³ë¿¹°è¾à',icon = 'warning')
+                    slavery = mb.askquestion ('Choose one','Yes:ìì‹ ì˜ ë…¸ì˜ˆí•´ë°© \n, No:ë‹¤ë¥¸ ëª¨ë“  í”Œë ˆì´ì–´ì—ê²Œ ë…¸ì˜ˆê³„ì•½',icon = 'warning')
             
                 if slavery=='yes':
                     self.effects[12]=0
-                    mb.showinfo(None, self.name+" Àº(´Â) ÀÌÁ¦ ÀÚÀ¯ÀÔ´Ï´Ù")
+                    mb.showinfo(None, self.name+" ì€(ëŠ”) ì´ì œ ììœ ì…ë‹ˆë‹¤")
                 else:
                     for o in others:
                         players[o].effects[12]=1
-                        mb.showinfo(None, self.name+" Àº(´Â) ÀÌÁ¦ºÎÅÍ ³ë¿¹ÀÔ´Ï´Ù")
+                        mb.showinfo(None, self.name+" ì€(ëŠ”) ì´ì œë¶€í„° ë…¸ì˜ˆì…ë‹ˆë‹¤")
         if re!=0:
             for pl in players:                 # projectile
                 if pl.turn!=self.turn: 
@@ -571,7 +543,7 @@ class Player():
                 self.location=int(muststop[i])
                 if self.phase<i+1: 
                     self.addMaxhp(100)
-                    window.getAlarm(self.name+'` ÃÖ´ë Ã¼·Â Áõ°¡ÇÔ')
+                    window.getAlarm(self.name+'` ìµœëŒ€ ì²´ë ¥ ì¦ê°€í•¨')
                 self.phase=i+1
         
         
@@ -580,7 +552,7 @@ class Player():
     
     def End(self,players):
             winsound.PlaySound('sound\\victory.wav', winsound.SND_ASYNC)
-            mb.showinfo(None, self.name+" ÀÌ(°¡) ½Â¸®Çß½À´Ï´Ù!!")
+            mb.showinfo(None, self.name+" ì´(ê°€) ìŠ¹ë¦¬í–ˆìŠµë‹ˆë‹¤!!")
             others=[]
             reportfmt = '{0:<10} ({1:<2}): {2:<6}|{3:<6}|{4:<6}|{5:<5}|{6:<5}|{7:<5}|{8:<7}|{9:<13}'    
             
@@ -598,24 +570,24 @@ class Player():
                 second=others[1]
                 third=others[0]
                 
-            mb.showinfo(None, "2µî:"+second.name)
-            mb.showinfo(None, "3µî:"+third.name)
+            mb.showinfo(None, "2ë“±:"+second.name)
+            mb.showinfo(None, "3ë“±:"+third.name)
             
             myfile=open("stats.txt","a")
             myfile.write("----------------------------------------------------- ------------------------\n")
-            myfile.write("1µî: "+self.name+"("+self.champ+"), 2µî:"+second.name+"("+second.champ+"),3µî:"+third.name+"("+third.champ+"),\n")
+            myfile.write("1ë“±: "+self.name+"("+self.champ+"), 2ë“±:"+second.name+"("+second.champ+"),3ë“±:"+third.name+"("+third.champ+"),\n")
             
             for p in players:
                 myfile.write(p.name+"("+p.champ+")-----------------------------------------------\n")
-                myfile.write("Å³/µ¥½º/¾î½Ã½ºÆ®:%d/%d/%d \n"% (p.kill,p.death,p.assist))
-                myfile.write("ÁØ ÇÇÇØ: %d \n"%p.stats[0])
-                myfile.write("¹ŞÀº ÇÇÇØ :%d \n"%p.stats[1])
-                myfile.write("È¸º¹·®:%d  \n"%p.stats[2])
-                myfile.write("¹ø µ·:%d gold \n"%p.stats[4])
-                myfile.write("¼Ò¸ğÇÑ µ·:%d gold\n"%p.stats[5])
-                myfile.write("»©¾Ñ±ä µ·:%d gold\n"%p.stats[6])
+                myfile.write("í‚¬/ë°ìŠ¤/ì–´ì‹œìŠ¤íŠ¸:%d/%d/%d \n"% (p.kill,p.death,p.assist))
+                myfile.write("ì¤€ í”¼í•´: %d \n"%p.stats[0])
+                myfile.write("ë°›ì€ í”¼í•´ :%d \n"%p.stats[1])
+                myfile.write("íšŒë³µëŸ‰:%d  \n"%p.stats[2])
+                myfile.write("ë²ˆ ëˆ:%d gold \n"%p.stats[4])
+                myfile.write("ì†Œëª¨í•œ ëˆ:%d gold\n"%p.stats[5])
+                myfile.write("ë¹¼ì•—ê¸´ ëˆ:%d gold\n"%p.stats[6])
                 
-            myfile.write('ÀÌ¸§        ÅÏ|°ø°İ   |ÁÖ¹®   |¹æ¾î   |¸¶Àú   |¹æ°ü   |¸¶°ü   |Àç»ı |»ı¸í·ÂÈí¼ö \n')
+            myfile.write('ì´ë¦„        í„´|ê³µê²©   |ì£¼ë¬¸   |ë°©ì–´   |ë§ˆì €   |ë°©ê´€   |ë§ˆê´€   |ì¬ìƒ |ìƒëª…ë ¥í¡ìˆ˜ \n')
             for ps in players:
                 myfile.write((reportfmt.format(ps.champ, ps.turn + 1, ps.AD, ps.AP, ps.AR, ps.MR, ps.arP, ps.MP, ps.regen, ps.absorb)+'\n'))
 
@@ -761,7 +733,7 @@ class Player():
         self.resetPoison()
         if self.effects[10] > 0:
             self.giveMoney(20*self.effects[10])
-            window.getAlarm("¿¬±İ È¿°ú·Î %d°ñµå Áö±Ş"%(20*self.effects[10]))
+            window.getAlarm("ì—°ê¸ˆ íš¨ê³¼ë¡œ %dê³¨ë“œ ì§€ê¸‰"%(20*self.effects[10]))
         self.Potato(players)
         self.Slave(players)
         
@@ -783,24 +755,24 @@ class Player():
                 self.effects[2]=1
                 self.yangiWspeed+=1
             if self.duration[1]==1:
-                window.getAlarm('¾çÀÌ È¸º¹ ¿Ï·á')
+                window.getAlarm('ì–‘ì´ íšŒë³µ ì™„ë£Œ')
                 self.effects[2]=0
                 self.effects[1]=self.yangiWspeed
                 self.duration[1]=0
         elif self.id==3:
             if self.duration[1]==1:
-                window.getAlarm('°í·¡ ½¯µå ³¡')
+                window.getAlarm('ê³ ë˜ ì‰´ë“œ ë')
                 self.addShield(-1*self.shield)
                 self.endW(players)
         elif self.id==5:
             if self.duration[2]==1:
-                window.getAlarm('½Ç¹ö ±Ã ³¡')
+                window.getAlarm('ì‹¤ë²„ ê¶ ë')
                 self.MR-=self.silveru1
                 self.AR-=self.silveru1
                 self.silveru1=0
         elif self.id==7:
             if self.duration[2]==1:
-                window.getAlarm('Áø ±Ã ³¡')
+                window.getAlarm('ì§„ ê¶ ë')
                 self.cooltime[2]=10
         elif self.id==11:
             if self.Wactive:
@@ -850,12 +822,12 @@ class Player():
         if self.id == 3 and skill == 3: 
             self.HP += 50
             self.MaxHP += 50
-            window.getAlarm('°í·¡ÀÇ ÃÖ´ëÃ¼·ÂÀÌ Áõ°¡Çß½À´Ï´Ù')
+            window.getAlarm('ê³ ë˜ì˜ ìµœëŒ€ì²´ë ¥ì´ ì¦ê°€í–ˆìŠµë‹ˆë‹¤')
             
         if self.id == 2 and skill == 3:
             self.cooltime[1] = 0
             self.cooltime[2] = 0
-            window.getAlarm('¾çÀÌÀÇ ÄğÅ¸ÀÓÀÌ ÃÊ±âÈ­µÇ¾ú½À´Ï´Ù')
+            window.getAlarm('ì–‘ì´ì˜ ì¿¨íƒ€ì„ì´ ì´ˆê¸°í™”ë˜ì—ˆìŠµë‹ˆë‹¤')
         
     def addAssist(self):
         self.assist += 1
@@ -864,11 +836,11 @@ class Player():
     def giveMoney(self, m):
         self.money += m
         if m > 0: 
-            window.getAlarm(self.name+'  %d °ñµå È¹µæ' %m)
+            window.getAlarm(self.name+'  %d ê³¨ë“œ íšë“' %m)
             self.lastmoney = m
             self.stats[4]+=m
         else: 
-            window.getAlarm(self.name+'%d °ñµå ¼Ò¸ğÇÔ' %m)
+            window.getAlarm(self.name+'%d ê³¨ë“œ ì†Œëª¨í•¨' %m)
             self.stats[5]+=-1*m
         window.moneyupdate(self.turn,self.money)
 
@@ -912,27 +884,27 @@ class Player():
         self.items[item]-=1
         
         if item==2:
-            window.getAlarm(self.name+'ÀÌ(°¡) 3µî±Ş °ËÀ» µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+'ì´(ê°€) 3ë“±ê¸‰ ê²€ì„ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.AD-=10
         elif item==5:
-            window.getAlarm(self.name+' ÀÌ(°¡) 3µî±Ş ±¸½½À» µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+' ì´(ê°€) 3ë“±ê¸‰ êµ¬ìŠ¬ì„ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.AP-=20
         elif item==8:
-            window.getAlarm(self.name+'ÀÌ(°¡) 3µî±Ş ¹æÆĞÀ» µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+'ì´(ê°€) 3ë“±ê¸‰ ë°©íŒ¨ì„ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.AR-=10
             self.MaxHP-=10
         elif item==11:
-            window.getAlarm(self.name+'ÀÌ(°¡) 3µî±Ş Àç»ıÀÇ ¿­¸Å¸¦ µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+'ì´(ê°€) 3ë“±ê¸‰ ì¬ìƒì˜ ì—´ë§¤ë¥¼ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.regen-=5
         elif item==14:
-            window.getAlarm(self.name+'ÀÌ(°¡) 3µî±Ş °©¿ÊÀ» µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+'ì´(ê°€) 3ë“±ê¸‰ ê°‘ì˜·ì„ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.MR-=10
             self.MaxHP-=10
         elif item==20:
-            window.getAlarm(self.name+'ÀÌ(°¡) ÅÂÃÊÀÇ ÈûÀ» µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+'ì´(ê°€) íƒœì´ˆì˜ í˜ì„ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.skilldmgReduction-=5
         elif item==26:
-            window.getAlarm(self.name+'ÀÌ(°¡) ÃÊ±Ş ¸¶¹ıÀÇ ¹«±â¸¦ µµµÏ¸Â¾Ò½À´Ï´Ù!')
+            window.getAlarm(self.name+'ì´(ê°€) ì´ˆê¸‰ ë§ˆë²•ì˜ ë¬´ê¸°ë¥¼ ë„ë‘‘ë§ì•˜ìŠµë‹ˆë‹¤!')
             self.adStat-=10
             if self.adStatAD:
                 self.AD-=10
@@ -949,7 +921,7 @@ class Player():
     def loanEnd(self):
         self.money -= 100
         if self.money < 0: self.money = 0
-        window.getAlarm(self.name+'ÀÇ ´ëÃâ±İ È¸¼öµÊ')
+        window.getAlarm(self.name+'ì˜ ëŒ€ì¶œê¸ˆ íšŒìˆ˜ë¨')
         window.moneyupdate(self.turn,self.money)
         
     def srCooldown(self):
@@ -1051,7 +1023,7 @@ class Player():
             for p in players:
                 if abs(self.location-p.location)<=3 and p.turn != self.turn:
                     pdmg=int(10+0.5*self.AD)
-                    window.getAlarm('¾çÀÌ Q È¿°ú:'+self.name+' hit '+p.name)
+                    window.getAlarm('ì–‘ì´ Q íš¨ê³¼:'+self.name+' hit '+p.name)
                     
                     
                     died=self.skillHit(players, [pdmg,0,self.adamage], self.turn, p.turn, 1)
@@ -1067,7 +1039,7 @@ class Player():
 #                 yangi.stats[0]+=(pdmg)
 #                 totaldamage=self.totalDamage(pdmg,0,arP,0)
 #                 totaldamage+=yangi.adamage
-#                 window.getAlarm('¾çÀÌ Q È¿°ú:' +yangi.name+' hit '+self.name)
+#                 window.getAlarm('ì–‘ì´ Q íš¨ê³¼:' +yangi.name+' hit '+self.name)
 #                 winsound.PlaySound('sound\\hit.wav', winsound.SND_ASYNC)
 #                 died=self.giveDamage(players,totaldamage,yangi.turn)
 #                 yangi.resetOutbattle()
@@ -1090,7 +1062,7 @@ class Player():
             if self.location==int(m):
                 if damage<4444: return False
             
-        if damage==9999: damage=int(self.HP/2)      #Ä«Áö³ë Àü¿ë
+        if damage==9999: damage=int(self.HP/2)      #ì¹´ì§€ë…¸ ì „ìš©
         
         temp = -1
         if self.effects[9] > 0: damage *= 2  # radiation 
@@ -1129,7 +1101,7 @@ class Player():
             if self.items[15] > 0 and self.gacool == 0:
                 self.gacool = 10
                 self.HP = self.MaxHP / 2
-                window.getAlarm('¼öÈ£ Ãµ»ç ¹ßµ¿!')
+                window.getAlarm('ìˆ˜í˜¸ ì²œì‚¬ ë°œë™!')
                 window.hpupdate(self.turn,self.MaxHP,self.HP,self.shield,True,self.MaxHP/2)
                 window.statusupdate(self.turn, self.champ, self.duration, self.effects)
             else:
@@ -1137,33 +1109,33 @@ class Player():
                     winsound.PlaySound('sound\\execute.wav', winsound.SND_ASYNC)
                 
                 if skfrom == -1:
-                    window.getAlarm((self.name+' ÀÌ(°¡) Ã³ÇüµÇ¾ú½À´Ï´Ù'))
+                    window.getAlarm((self.name+' ì´(ê°€) ì²˜í˜•ë˜ì—ˆìŠµë‹ˆë‹¤'))
                 elif skfrom == -2:
-                    window.getAlarm((self.name+'ÀÌ(°¡) µ¶¹ö¼¸À» ¸Ô¾ú½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ë…ë²„ì„¯ì„ ë¨¹ì—ˆìŠµë‹ˆë‹¤'))
                 elif skfrom == -3:
-                    window.getAlarm((self.name+'ÀÌ(°¡) °ú·Î»çÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ê³¼ë¡œì‚¬í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom == -4:
-                    window.getAlarm((self.name+'ÀÌ(°¡) ÇÑ½Ãµµ °¡¸¸È÷ ÀÖÁö¸¦ ¸øÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) í•œì‹œë„ ê°€ë§Œíˆ ìˆì§€ë¥¼ ëª»í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom ==-5:
-                    window.getAlarm((self.name+'ÀÌ(°¡) ÀÚ»ìÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ìì‚´í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom ==-6:
-                    window.getAlarm((self.name+'ÀÌ(°¡) ¹«¸®ÇÑ Æ÷Å¾ ´ÙÀÌºê·Î »ç¸ÁÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ë¬´ë¦¬í•œ í¬íƒ‘ ë‹¤ì´ë¸Œë¡œ ì‚¬ë§í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-7:
-                    window.getAlarm((self.name+'ÀÌ(°¡) Èä±â¿¡ Âñ·Á »ìÇØ´çÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) í‰ê¸°ì— ì°”ë ¤ ì‚´í•´ë‹¹í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-8:
-                    window.getAlarm((self.name+'ÀÌ(°¡) µ·ÀÇ ³ë¿¹°¡ µÇ¾ú½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ëˆì˜ ë…¸ì˜ˆê°€ ë˜ì—ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-9:
-                    window.getAlarm((self.name+'ÀÌ(°¡) »ìÇØ´çÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ì‚´í•´ë‹¹í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-10:
-                    window.getAlarm((self.name+'ÀÌ(°¡)  Ã³Çü´çÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€)  ì²˜í˜•ë‹¹í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-11:
-                    window.getAlarm((self.name+'ÀÌ(°¡) ÆøÆÄ´çÇß½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) í­íŒŒë‹¹í–ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-12:
-                    window.getAlarm((self.name+'ÀÌ(°¡) µµ¹Ú¿¡ Áßµ¶µÇ¾ú½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ë„ë°•ì— ì¤‘ë…ë˜ì—ˆìŠµë‹ˆë‹¤'))
                 elif skfrom==-13:
-                    window.getAlarm((self.name+'ÀÌ(°¡) Á×À½À¸·Î½á ¸¶Ä§³» ³ë¿¹¿¡¼­ ÇØ¹æµÇ¾ú½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ì£½ìŒìœ¼ë¡œì¨ ë§ˆì¹¨ë‚´ ë…¸ì˜ˆì—ì„œ í•´ë°©ë˜ì—ˆìŠµë‹ˆë‹¤'))
                 else:
-                    window.getAlarm((self.name+'ÀÌ(°¡) Ã³Ä¡µÇ¾ú½À´Ï´Ù'))
+                    window.getAlarm((self.name+'ì´(ê°€) ì²˜ì¹˜ë˜ì—ˆìŠµë‹ˆë‹¤'))
                     winsound.PlaySound('sound\\kill.wav', winsound.SND_ASYNC)
                 time.sleep(2)
                 self.damagedby[1] = temp
@@ -1231,12 +1203,12 @@ class Player():
         if p[skfrom].id == 5 and skill == 2: 
             p[to].marks[0][0] = 3          # silver w
             p[to].marks[0][1]=skfrom+1
-            window.getAlarm((p[to].name+'ÀÌ(°¡) ½Ç¹ö ÀÎÀåÀ» ¹Ş¾Ò½À´Ï´Ù'))
+            window.getAlarm((p[to].name+'ì´(ê°€) ì‹¤ë²„ ì¸ì¥ì„ ë°›ì•˜ìŠµë‹ˆë‹¤'))
             return False
         
         if p[skfrom].id == 5 and skill == 1 and skfrom+1==p[to].marks[0][1]:  # silver q
             damage[2] += 30
-            window.getAlarm(('Ãß°¡ ÇÇÇØ:30'))
+            window.getAlarm(('ì¶”ê°€ í”¼í•´:30'))
             p[to].marks[0] = [0,0]
         
         if p[skfrom].id == 7 and skill == 1 and p[to].marks[1][0] > 0 and skfrom+1==p[to].marks[1][1]:  # jean q
@@ -1271,7 +1243,7 @@ class Player():
         if (0 < self.damagedby[0] < 3) and self.damagedby[1]>=0 and (skfrom != self.damagedby[1]) and self!=self.damagedby[1]:  # assist
             p[self.damagedby[1]].addAssist()
             self.damagedby[0] = 0
-            print('¾î½Ã½ºÆ®!%d %d'%(self.damagedby[1],skfrom))
+            print('ì–´ì‹œìŠ¤íŠ¸!%d %d'%(self.damagedby[1],skfrom))
             
 #     def recAIstore(self,itemwant,temitemlist,toremove):        
             
@@ -1280,7 +1252,7 @@ class Player():
             
     
     def AIstore(self):
-        while(self.money>=30):                         # µ·ÀÌ 30¿ø ¹Ì¸¸ÀÏ½Ã ÀÚµ¿ ¾Æ¿ô
+        while(self.money>=30):                         # ëˆì´ 30ì› ë¯¸ë§Œì¼ì‹œ ìë™ ì•„ì›ƒ
             Itemwant=self.itemtree[self.itemtree[0]+1]
 #             getitem=False
 #             self.recAIstore(itemwant)
@@ -1291,7 +1263,7 @@ class Player():
             
             
             
-            while(True):                               #¾ÆÀÌÅÛ ¸ø¾òÀº µ¿¾ÈÀº °è¼Óµ¹¸²
+            while(True):                               #ì•„ì´í…œ ëª»ì–»ì€ ë™ì•ˆì€ ê³„ì†ëŒë¦¼
                 price = 0;
                 remove2 = 0;
                 remove3 = 0;
@@ -1315,22 +1287,22 @@ class Player():
                         price -= (80 * self.items[1] + 30 * self.items[2])
                         zero=True
                         
-                    if price>self.money:     #1µî±Ş »ì µ·ÀÌ ¾ÈµÊ
-                        if self.items[1]>=2: return        #3µî±Ş°Ë 2°³ÀÌ»ó º¸À¯½Ã ¾Æ¹«°Íµµ ¾È»ç°í 2µî±Ş°Ë  µ· µÉ¶§±îÁö ±â´Ù¸²
+                    if price>self.money:     #1ë“±ê¸‰ ì‚´ ëˆì´ ì•ˆë¨
+                        if self.items[1]>=2: return        #3ë“±ê¸‰ê²€ 2ê°œì´ìƒ ë³´ìœ ì‹œ ì•„ë¬´ê²ƒë„ ì•ˆì‚¬ê³  2ë“±ê¸‰ê²€  ëˆ ë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                         
-                        price=80                         #2µî±Ş°Ë ±¸ÀÔ ½Ãµµ
+                        price=80                         #2ë“±ê¸‰ê²€ êµ¬ì… ì‹œë„
                         if self.items[2]>1:
                             price-=60
                             remove3=2
                         elif self.items[2]==1:
                             price-=30*self.items[2]
                             remove3=1
-                        if price>self.money:               #2µî±Ş°Ë »ìµ·µµ ¾ø°í 3µî±Ş°Ë 2°³ÀÌ»ó º¸À¯ÇÏÁö ¾Ê¾ÒÀ»¶§
-                            if self.items[2]>=2: return        #3µî±Ş°Ë 2°³ÀÌ»ó º¸À¯½Ã ¾Æ¹«°Íµµ ¾È»ç°í 2µî±Ş°Ë  µ· µÉ¶§±îÁö ±â´Ù¸²
+                        if price>self.money:               #2ë“±ê¸‰ê²€ ì‚´ëˆë„ ì—†ê³  3ë“±ê¸‰ê²€ 2ê°œì´ìƒ ë³´ìœ í•˜ì§€ ì•Šì•˜ì„ë•Œ
+                            if self.items[2]>=2: return        #3ë“±ê¸‰ê²€ 2ê°œì´ìƒ ë³´ìœ ì‹œ ì•„ë¬´ê²ƒë„ ì•ˆì‚¬ê³  2ë“±ê¸‰ê²€  ëˆ ë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                             
-                            price=30                         #3µî±Ş ±¸ÀÔ½Ãµµ
+                            price=30                         #3ë“±ê¸‰ êµ¬ì…ì‹œë„
                             if price>self.money:  
-                                return                        #3µî±Şµµ ¸ø»ç¸é ³ª°¨
+                                return                        #3ë“±ê¸‰ë„ ëª»ì‚¬ë©´ ë‚˜ê°
                             else:
                                 self.items[2]+=1
                                 self.giveMoney(-1*price)
@@ -1338,14 +1310,14 @@ class Player():
                                 window.getAlarm(self.name+"bought 3rd sword")
                             
                             
-                        else:            #2µî±Ş »ìµ· µÊ
+                        else:            #2ë“±ê¸‰ ì‚´ëˆ ë¨
                             self.items[1]+=1
                             self.items[2]-=remove3
                             self.giveMoney(-1*price)
                             self.AD+=30
                             window.getAlarm(self.name+"bought 2nd sword")
                         
-                    else:              #1µî±Ş »ì µ·ÀÌ µÉ¶§
+                    else:              #1ë“±ê¸‰ ì‚´ ëˆì´ ë ë•Œ
                         self.items[0]+=1
                         self.items[1]-=remove2
                         self.items[2]-=remove3
@@ -1374,22 +1346,22 @@ class Player():
                         price -= (120 * self.items[4] + 40 * self.items[5])
                         zero=True
                         
-                    if price>self.money:     #1µî±Ş »ì µ·ÀÌ ¾ÈµÊ
-                        if self.items[4]>=2: return        #2µî±Ş 2°³ÀÌ»ó º¸À¯½Ã ¾Æ¹«°Íµµ ¾È»ç°í 2µî±Ş°Ë  µ· µÉ¶§±îÁö ±â´Ù¸²
+                    if price>self.money:     #1ë“±ê¸‰ ì‚´ ëˆì´ ì•ˆë¨
+                        if self.items[4]>=2: return        #2ë“±ê¸‰ 2ê°œì´ìƒ ë³´ìœ ì‹œ ì•„ë¬´ê²ƒë„ ì•ˆì‚¬ê³  2ë“±ê¸‰ê²€  ëˆ ë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                         
-                        price=120                         #2µî±Ş°Ë ±¸ÀÔ ½Ãµµ
+                        price=120                         #2ë“±ê¸‰ê²€ êµ¬ì… ì‹œë„
                         if self.items[5]>1:
                             price-=80
                             remove3=2
                         elif self.items[5]==1:
                             price-=40*self.items[5]
                             remove3=1
-                        if price>self.money:               #2µî±Ş »ìµ·µµ ¾ø°í 3µî±Ş°Ë 2°³ÀÌ»ó º¸À¯ÇÏÁö ¾Ê¾ÒÀ»¶§
-                            if self.items[5]>=2: return        #3µî±Ş 2°³ÀÌ»ó º¸À¯½Ã ¾Æ¹«°Íµµ ¾È»ç°í 2µî±Ş°Ë  µ· µÉ¶§±îÁö ±â´Ù¸²
+                        if price>self.money:               #2ë“±ê¸‰ ì‚´ëˆë„ ì—†ê³  3ë“±ê¸‰ê²€ 2ê°œì´ìƒ ë³´ìœ í•˜ì§€ ì•Šì•˜ì„ë•Œ
+                            if self.items[5]>=2: return        #3ë“±ê¸‰ 2ê°œì´ìƒ ë³´ìœ ì‹œ ì•„ë¬´ê²ƒë„ ì•ˆì‚¬ê³  2ë“±ê¸‰ê²€  ëˆ ë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                             
-                            price=40                         #3µî±Ş ±¸ÀÔ½Ãµµ
+                            price=40                         #3ë“±ê¸‰ êµ¬ì…ì‹œë„
                             if price>self.money:  
-                                return                        #3µî±Şµµ ¸ø»ç¸é ³ª°¨
+                                return                        #3ë“±ê¸‰ë„ ëª»ì‚¬ë©´ ë‚˜ê°
                             else:
                                 self.items[5]+=1
                                 self.giveMoney(-1*price)
@@ -1397,14 +1369,14 @@ class Player():
                                 window.getAlarm(self.name+"bought 3rd marble")
                             
                             
-                        else:            #2µî±Ş »ìµ· µÊ
+                        else:            #2ë“±ê¸‰ ì‚´ëˆ ë¨
                             self.items[4]+=1
                             self.items[5]-=remove3
                             self.giveMoney(-1*price)
                             self.AP+=50
                             window.getAlarm(self.name+"bought 2nd marble")
                         
-                    else:              #1µî±Ş »ì µ·ÀÌ µÉ¶§
+                    else:              #1ë“±ê¸‰ ì‚´ ëˆì´ ë ë•Œ
                         self.items[3]+=1
                         self.items[4]-=remove2
                         self.items[5]-=remove3
@@ -1432,22 +1404,22 @@ class Player():
                         price -= (120 * self.items[10] + 40 * self.items[11])
                         zero=True
                         
-                    if price>self.money:     #1µî±Ş »ì µ·ÀÌ ¾ÈµÊ
-                        if self.items[10]>=2: return        #2µî±Ş 2°³ÀÌ»ó º¸À¯½Ã ¾Æ¹«°Íµµ ¾È»ç°í 2µî±Ş°Ë  µ· µÉ¶§±îÁö ±â´Ù¸²
+                    if price>self.money:     #1ë“±ê¸‰ ì‚´ ëˆì´ ì•ˆë¨
+                        if self.items[10]>=2: return        #2ë“±ê¸‰ 2ê°œì´ìƒ ë³´ìœ ì‹œ ì•„ë¬´ê²ƒë„ ì•ˆì‚¬ê³  2ë“±ê¸‰ê²€  ëˆ ë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                         
-                        price=120                         #2µî±Ş°Ë ±¸ÀÔ ½Ãµµ
+                        price=120                         #2ë“±ê¸‰ê²€ êµ¬ì… ì‹œë„
                         if self.items[11]>1:
                             price-=80
                             remove3=2
                         elif self.items[11]==1:
                             price-=40*self.items[11]
                             remove3=1
-                        if price>self.money:               #2µî±Ş »ìµ·µµ ¾ø°í 3µî±Ş°Ë 2°³ÀÌ»ó º¸À¯ÇÏÁö ¾Ê¾ÒÀ»¶§
-                            if self.items[11]>=2: return        #3µî±Ş 2°³ÀÌ»ó º¸À¯½Ã ¾Æ¹«°Íµµ ¾È»ç°í 2µî±Ş°Ë  µ· µÉ¶§±îÁö ±â´Ù¸²
+                        if price>self.money:               #2ë“±ê¸‰ ì‚´ëˆë„ ì—†ê³  3ë“±ê¸‰ê²€ 2ê°œì´ìƒ ë³´ìœ í•˜ì§€ ì•Šì•˜ì„ë•Œ
+                            if self.items[11]>=2: return        #3ë“±ê¸‰ 2ê°œì´ìƒ ë³´ìœ ì‹œ ì•„ë¬´ê²ƒë„ ì•ˆì‚¬ê³  2ë“±ê¸‰ê²€  ëˆ ë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                             
-                            price=40                         #3µî±Ş ±¸ÀÔ½Ãµµ
+                            price=40                         #3ë“±ê¸‰ êµ¬ì…ì‹œë„
                             if price>self.money:  
-                                return                        #3µî±Şµµ ¸ø»ç¸é ³ª°¨
+                                return                        #3ë“±ê¸‰ë„ ëª»ì‚¬ë©´ ë‚˜ê°
                             else:
                                 self.items[11]+=1
                                 self.giveMoney(-1*price)
@@ -1455,7 +1427,7 @@ class Player():
                                 window.getAlarm(self.name+"bought 3rd fruit")
                             
                             
-                        else:            #2µî±Ş »ìµ· µÊ
+                        else:            #2ë“±ê¸‰ ì‚´ëˆ ë¨
                             self.items[10]+=1
                             self.items[11]-=remove3
                             self.giveMoney(-1*price)
@@ -1463,7 +1435,7 @@ class Player():
                             self.addMaxhp(40)
                             window.getAlarm(self.name+"bought 2nd fruit")
                         
-                    else:              #1µî±Ş »ì µ·ÀÌ µÉ¶§
+                    else:              #1ë“±ê¸‰ ì‚´ ëˆì´ ë ë•Œ
                         self.items[9]+=1
                         self.items[10]-=remove2
                         self.items[11]-=remove3
@@ -1505,7 +1477,7 @@ class Player():
         self.effects[10]=0
         while(self.money>=30):
             winsound.PlaySound('sound\\store.wav', winsound.SND_ASYNC)
-            Item=window.itemchoose((self.name+' ('+self.champ+'), ³²Àº °ñµå:%d'%self.money),self.items)-1
+            Item=window.itemchoose((self.name+' ('+self.champ+'), ë‚¨ì€ ê³¨ë“œ:%d'%self.money),self.items)-1
             if Item<0: break
             tobuy=allItem[Item]
             toremove=[]
@@ -1564,7 +1536,7 @@ class Player():
                     self.items[r]-=1;
                 
                 self.items[Item]+=1
-                #mb.showinfo(None, "%s ±¸¸Å"%tobuy.name)
+                #mb.showinfo(None, "%s êµ¬ë§¤"%tobuy.name)
         
        
             
@@ -1578,7 +1550,7 @@ class Player():
         if upper>int(muststop[len(muststop)-1]): upper=int(muststop[len(muststop)-1])
         
         target=self
-        for i in range(lower-3,upper):   #¹üÀ§ µÚ¿¡ÀÖ´Â ÇÃ·¹ÀÌ¾îµµ ¸ÂÀ» ¼ö ÀÖÀ½,¹üÀ§ ³¡¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾î´Â ¸ÂÀ»È®À² ³·À½
+        for i in range(lower-3,upper):   #ë²”ìœ„ ë’¤ì—ìˆëŠ” í”Œë ˆì´ì–´ë„ ë§ì„ ìˆ˜ ìˆìŒ,ë²”ìœ„ ëì— ìˆëŠ” í”Œë ˆì´ì–´ëŠ” ë§ì„í™•ìœ¨ ë‚®ìŒ
             for p in players:
                 if p.location==i and p!=self:
                     if p.effects[2]>0: 
@@ -1631,14 +1603,14 @@ class Player():
         died=False
         self.Absorb()
         
-        if(self.id==1):                  #¹öµå ½ºÅ³
+        if(self.id==1):                  #ë²„ë“œ ìŠ¤í‚¬
             if self.duration[2]>0:
                 pdmg=int(1.5*self.AD+10)
             if self.duration[1]>0:
                 mdmg=int(10+0.5*self.AP)
                 MP=self.MP
         self.stats[0]+=(pdmg+mdmg)
-        if self.items[18]>0:         #»ìÀÇÀÇÃ¤Âï
+        if self.items[18]>0:         #ì‚´ì˜ì˜ì±„ì°
             mdmg+=int((self.adStat)*0.3)
         totaldamage=target.totalDamage(self,pdmg,mdmg,arP,MP)
         if self.adamage==20: totaldamage+=20
@@ -1657,7 +1629,7 @@ class Player():
         range=self.basicattackRange
         died=False
        
-        if self.id==1 and self.duration[2]>0 and range<3:     #¹öµå±Ã
+        if self.id==1 and self.duration[2]>0 and range<3:     #ë²„ë“œê¶
             range=3
         
         
@@ -1680,7 +1652,7 @@ class Player():
                 else:
                     targets.append(p.turn)
         if len(targets)==0: 
-            window.getAlarm('¹üÀ§³»¿¡ ÇÃ·¹ÀÌ¾î ¾øÀ½')
+            window.getAlarm('ë²”ìœ„ë‚´ì— í”Œë ˆì´ì–´ ì—†ìŒ')
             return None
             
         return targets
@@ -1695,7 +1667,7 @@ class Player():
         
         output[2] += self.adamage
         
-        window.getAlarm('¹°¸®ÇÇÇØ:%d, ¸¶¹ıÇÇÇØ: %d, °íÁ¤ÇÇÇØ:%d' %( output[0], output[1], output[2]))
+        window.getAlarm('ë¬¼ë¦¬í”¼í•´:%d, ë§ˆë²•í”¼í•´: %d, ê³ ì •í”¼í•´:%d' %( output[0], output[1], output[2]))
         
         damage = [output[0], output[1], output[2]]
         
@@ -1726,7 +1698,7 @@ class Player():
                     targets.append(p)
                 
         if len(targets)==0: 
-            window.getAlarm('¹üÀ§³»¿¡ ÇÃ·¹ÀÌ¾î ¾øÀ½')
+            window.getAlarm('ë²”ìœ„ë‚´ì— í”Œë ˆì´ì–´ ì—†ìŒ')
             return -1
         
         
@@ -1778,9 +1750,9 @@ def chooseSubway():
     return d
     
 subway = Tk()
-subway.title("ÁöÇÏÃ¶")
+subway.title("ì§€í•˜ì² ")
 
-label=Label(subway, text=""" 1.»óÁ¡À¸·Î \n2.  -50 °ñµå\n3. +50 °ñµå\n4. »ç¸Á\n5. 2µî±Ş Àç»ıÀÇ ¿­¸Å Áö±Ş\n6. 34¹øÄ­À¸·Î""",fg="black",font="none 13")
+label=Label(subway, text=""" 1.ìƒì ìœ¼ë¡œ \n2.  -50 ê³¨ë“œ\n3. +50 ê³¨ë“œ\n4. ì‚¬ë§\n5. 2ë“±ê¸‰ ì¬ìƒì˜ ì—´ë§¤ ì§€ê¸‰\n6. 34ë²ˆì¹¸ìœ¼ë¡œ""",fg="black",font="none 13")
 
 label.grid(column=0,row=0,sticky=W)
 
@@ -1806,9 +1778,9 @@ def chooseCasino():
     return di
     
 casino = Tk()
-casino.title("Ä«Áö³ë")
+casino.title("ì¹´ì§€ë…¸")
 casino.configure(background="#ffb20c")
-clabel=Label(casino, text=""" 1.+100 °ñµå \n2.  °ñµå x2\n3. 2ÅÏ ½Å¼Ó\n4. Ã¼·Â Àı¹İÀ¸·Î\n5.µ· Àı¹İ ¸ô¼ö \n6. ¼Ó¹Ú, Ã¼·Â-50""",fg="black",bg="#ffb20c",font="none 13")
+clabel=Label(casino, text=""" 1.+100 ê³¨ë“œ \n2.  ê³¨ë“œ x2\n3. 2í„´ ì‹ ì†\n4. ì²´ë ¥ ì ˆë°˜ìœ¼ë¡œ\n5.ëˆ ì ˆë°˜ ëª°ìˆ˜ \n6. ì†ë°•, ì²´ë ¥-50""",fg="black",bg="#ffb20c",font="none 13")
 
 clabel.grid(column=0,row=0,sticky=W)
 
@@ -1833,10 +1805,10 @@ def chooseJudge():
     return di
     
 judge = Tk()
-judge.title("ÀÎ¹Î ÀçÆÇ")
+judge.title("ì¸ë¯¼ ì¬íŒ")
 judge.configure(background="red")
-Jlabel=Label(judge,text="ÀÎ¹Î ÀçÆÇ",fg="yellow",bg="red",font="none 20 bold")
-jlabel=Label(judge, text=""" 1.-100 °ñµå \n2.  ¼Ó¹Ú, Ã¼·Â 1/2\n3. ¼ºÁö ¼ø·Ê!!\n4. »çÇü ¼±°í \n5.¸ğµç ÇÃ·¹ÀÌ¾î ¼ÒÈ¯\n6. 2°³ ¿É¼ÇÁß ¼±ÅÃ""",fg="black",bg="red",font="none 13")
+Jlabel=Label(judge,text="ì¸ë¯¼ ì¬íŒ",fg="yellow",bg="red",font="none 20 bold")
+jlabel=Label(judge, text=""" 1.-100 ê³¨ë“œ \n2.  ì†ë°•, ì²´ë ¥ 1/2\n3. ì„±ì§€ ìˆœë¡€!!\n4. ì‚¬í˜• ì„ ê³  \n5.ëª¨ë“  í”Œë ˆì´ì–´ ì†Œí™˜\n6. 2ê°œ ì˜µì…˜ì¤‘ ì„ íƒ""",fg="black",bg="red",font="none 13")
 Jlabel.grid(column=0,row=0,sticky=W)
 jlabel.grid(column=0,row=1,sticky=W)
 
