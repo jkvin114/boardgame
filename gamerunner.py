@@ -32,18 +32,18 @@ dicewin.withdraw()
 turn=0
 
 reportfmt = '{0:<10} ({1:<2}): {2:<6}|{3:<6}|{4:<6}|{5:<5}|{6:<5}|{7:<5}|{8:<7}|{9:<13}'    
-PLAYERNUMBER = int(input("ÇÃ·¹ÀÌ¾î ¼ö ÀÔ·Â:"))  
+PLAYERNUMBER = int(input("í”Œë ˆì´ì–´ ìˆ˜ ì…ë ¥:"))  
 COMPUTERNUMBER=0
-names = ['¼º¼ö','¿¹ÁØ','#3','#4']
-cnames=['º¸½º','º¿2','º¿3','º¿4']
+names = ['1P','2P','#3','#4']
+cnames=['ë´‡1','ë´‡2','ë´‡3','ë´‡4']
 PLAYERS = []
 
 
 
-print("1.¹öµå\n2. ¾ç\n3.°í·¡\n4.Å©¸®µå \n5.½Ç¹ö\n6.Æ¼¸ğ\n7.Áø \n8.Á©¸®½º \n9.¹«ºù½Å\n10.ºíÅ©½º\n11. ¹ÌÄ£¹Ú»ç")
+print("1.ë²„ë“œ\n2. ì–‘\n3.ê³ ë˜\n4.í¬ë¦¬ë“œ \n5.ì‹¤ë²„\n6.í‹°ëª¨\n7.ì§„ \n8.ì ¤ë¦¬ìŠ¤ \n9.ë¬´ë¹™ì‹ \n10.ë¸”í¬ìŠ¤\n11. ë¯¸ì¹œë°•ì‚¬")
 
 for i in range(0, PLAYERNUMBER):
-    n = int(input('%d ÅÏ Ã¨ÇÇ¾ğ ¼±ÅÃ:'% (i+1)))
+    n = int(input('%d í„´ ì±”í”¼ì–¸ ì„ íƒ:'% (i+1)))
     #n=1
     if n==1:
         PLAYERS.append(Bird(n, names[i], i,False))
@@ -123,7 +123,7 @@ while(keepgoing):  # oneturnloop
         else:
             window.passturn(p.name)
             obs=p.currobs
-            #mb.showerror(None, "¼Ó¹Ú »óÅÂÀÔ´Ï´Ù!")
+            #mb.showerror(None, "ì†ë°• ìƒíƒœì…ë‹ˆë‹¤!")
             
             
             
@@ -176,18 +176,18 @@ while(keepgoing):  # oneturnloop
         for i in range(0, 4):  # oneskillloop
             window.buttonupdate(p.cooltime)
             window.reportReset()
-            window.getReport('ÀÌ¸§        ÅÏ    |°ø°İ   |ÁÖ¹®  |¹æ¾î  |¸¶Àú |¹æ°ü |¸¶°ü |Àç»ı  |»ı¸í·ÂÈí¼ö  \n')
+            window.getReport('ì´ë¦„        í„´    |ê³µê²©   |ì£¼ë¬¸  |ë°©ì–´  |ë§ˆì € |ë°©ê´€ |ë§ˆê´€ |ì¬ìƒ  |ìƒëª…ë ¥í¡ìˆ˜  \n')
             for ps in PLAYERS:
                 window.getReport((reportfmt.format(ps.champ, ps.turn + 1, ps.AD, ps.AP, ps.AR, ps.MR, ps.arP, ps.MP, ps.regen, ps.absorb),'\n'))
             for ps in PLAYERS:
-                window.getReport((ps.name,'À§Ä¡:',ps.location,ps.kill, '/', ps.death, '/', ps.assist, '½¯µå:', ps.shield,'ÄğÅ¸ÀÓ:', ps.cooltime[0], '/', ps.cooltime[1], '/', ps.cooltime[2], '½ºÅ³Áö¼Ó½Ã°£:', ps.duration[0], '/', ps.duration[1], '/', ps.duration[2],'\n'))
+                window.getReport((ps.name,'ìœ„ì¹˜:',ps.location,ps.kill, '/', ps.death, '/', ps.assist, 'ì‰´ë“œ:', ps.shield,'ì¿¨íƒ€ì„:', ps.cooltime[0], '/', ps.cooltime[1], '/', ps.cooltime[2], 'ìŠ¤í‚¬ì§€ì†ì‹œê°„:', ps.duration[0], '/', ps.duration[1], '/', ps.duration[2],'\n'))
 
             # skill damage display
             
             # chose skill
            
             if p.effects[4]>0 and not p.isai: 
-                mb.showinfo(None, "ÀÌ¹øÅÏ¿£ ½ºÅ³»ç¿ë ºÒ°¡")
+                mb.showinfo(None, "ì´ë²ˆí„´ì—” ìŠ¤í‚¬ì‚¬ìš© ë¶ˆê°€")
                 break
             
             
@@ -211,22 +211,22 @@ while(keepgoing):  # oneturnloop
                 skill=window.skillupdate(p.getTooltip())
                 
                 if skill==2 and p.phase<2:
-                    mb.showerror(None, "¾ÆÁ÷ ½ºÅ³À» ¹è¿ìÁö ¾Ê¾Ò½À´Ï´Ù!")
+                    mb.showerror(None, "ì•„ì§ ìŠ¤í‚¬ì„ ë°°ìš°ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!")
                     continue
                     
                 elif skill==3 and p.phase<3:
-                    mb.showerror(None, "¾ÆÁ÷ ½ºÅ³À» ¹è¿ìÁö ¾Ê¾Ò½À´Ï´Ù!")
+                    mb.showerror(None, "ì•„ì§ ìŠ¤í‚¬ì„ ë°°ìš°ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!")
                     continue
                      
             
             if skill == 0:                  #goto next turn
                 #p.otherCooldown()
                 window.reportReset()
-                window.getReport('ÀÌ¸§        ÅÏ    |°ø°İ   |ÁÖ¹®  |¹æ¾î  |¸¶Àú |¹æ°ü |¸¶°ü |Àç»ı  |»ı¸í·ÂÈí¼ö \n')
+                window.getReport('ì´ë¦„        í„´    |ê³µê²©   |ì£¼ë¬¸  |ë°©ì–´  |ë§ˆì € |ë°©ê´€ |ë§ˆê´€ |ì¬ìƒ  |ìƒëª…ë ¥í¡ìˆ˜ \n')
                 for ps in PLAYERS:
                     window.getReport((reportfmt.format(ps.champ, ps.turn + 1, ps.AD, ps.AP, ps.AR, ps.MR, ps.arP, ps.MP, ps.regen, ps.absorb),'\n'))
                 for ps in PLAYERS:
-                    window.getReport((ps.name,'À§Ä¡:',ps.location,ps.kill, '/', ps.death, '/', ps.assist, '½¯µå:', ps.shield,'ÄğÅ¸ÀÓ:', ps.cooltime[0], '/', ps.cooltime[1], '/', ps.cooltime[2], '½ºÅ³Áö¼Ó½Ã°£:', ps.duration[0], '/', ps.duration[1], '/', ps.duration[2],'\n'))
+                    window.getReport((ps.name,'ìœ„ì¹˜:',ps.location,ps.kill, '/', ps.death, '/', ps.assist, 'ì‰´ë“œ:', ps.shield,'ì¿¨íƒ€ì„:', ps.cooltime[0], '/', ps.cooltime[1], '/', ps.cooltime[2], 'ìŠ¤í‚¬ì§€ì†ì‹œê°„:', ps.duration[0], '/', ps.duration[1], '/', ps.duration[2],'\n'))
 
                 break
             
@@ -256,11 +256,11 @@ while(keepgoing):  # oneturnloop
                 
                     
                 window.reportReset()
-                window.getReport('ÀÌ¸§        ÅÏ|°ø°İ   |ÁÖ¹®   |¹æ¾î   |¸¶Àú   |¹æ°ü   |¸¶°ü   |Àç»ı |»ı¸í·ÂÈí¼ö \n')
+                window.getReport('ì´ë¦„        í„´|ê³µê²©   |ì£¼ë¬¸   |ë°©ì–´   |ë§ˆì €   |ë°©ê´€   |ë§ˆê´€   |ì¬ìƒ |ìƒëª…ë ¥í¡ìˆ˜ \n')
                 for ps in PLAYERS:
                     window.getReport((reportfmt.format(ps.champ, ps.turn + 1, ps.AD, ps.AP, ps.AR, ps.MR, ps.arP, ps.MP, ps.regen, ps.absorb),'\n'))
                 for ps in PLAYERS:
-                    window.getReport((ps.name,'À§Ä¡:',ps.location,ps.kill, '/', ps.death, '/', ps.assist, '½¯µå:', ps.shield,'ÄğÅ¸ÀÓ:', ps.cooltime[0], '/', ps.cooltime[1], '/', ps.cooltime[2], '½ºÅ³Áö¼Ó½Ã°£:', ps.duration[0], '/', ps.duration[1], '/', ps.duration[2],'\n'))
+                    window.getReport((ps.name,'ìœ„ì¹˜:',ps.location,ps.kill, '/', ps.death, '/', ps.assist, 'ì‰´ë“œ:', ps.shield,'ì¿¨íƒ€ì„:', ps.cooltime[0], '/', ps.cooltime[1], '/', ps.cooltime[2], 'ìŠ¤í‚¬ì§€ì†ì‹œê°„:', ps.duration[0], '/', ps.duration[1], '/', ps.duration[2],'\n'))
 
         p.otherCooldown()
                     
